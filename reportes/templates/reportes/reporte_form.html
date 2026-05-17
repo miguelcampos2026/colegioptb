@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>{{ titulo }}</h1>
+
+<form method="get" action="">
+  <label>Fecha</label>
+  <input type="text" name="fecha" value="{{ request.GET.fecha|default:'' }}" placeholder="YYYY-MM-DD or Feb. 28, 2026" />
+  <label>Mes</label>
+  <input type="text" name="mes" value="{{ request.GET.mes|default:'' }}" placeholder="Número de mes" />
+  <label>Año</label>
+  <input type="text" name="anio" value="{{ request.GET.anio|default:'' }}" placeholder="Año" />
+  <button type="submit" name="generar" value="1">Generar vista</button>
+</form>
+
+<hr/>
+
+<p>Exportar directamente:</p>
+<a class="button" href="{% url 'admin:admin_reporte_export_pdf' slug %}?fecha={{ request.GET.fecha }}&mes={{ request.GET.mes }}&anio={{ request.GET.anio }}">Exportar a PDF</a>
+<a class="button" href="{% url 'admin:admin_reporte_export_excel' slug %}?fecha={{ request.GET.fecha }}&mes={{ request.GET.mes }}&anio={{ request.GET.anio }}">Exportar a Excel</a>
+
+{% endblock %}

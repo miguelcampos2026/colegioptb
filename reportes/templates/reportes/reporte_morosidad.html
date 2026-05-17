@@ -1,0 +1,53 @@
+{% extends "reportes/base_reporte.html" %}
+
+{% block reporte_contenido %}
+<h2>⚠️ Reporte de Morosidad</h2>
+
+<!-- Formulario de fecha de corte -->
+<form method="get">
+    <label for="fecha">Fecha de corte:</label>
+    <input type="date" id="fecha" name="fecha" value="{{ fecha_consulta }}">
+    <button type="submit" class="button">Generar</button>
+</form>
+
+<p>Fecha de consulta: {{ fecha_consulta }}</p>
+<!--
+<a href="{% url 'admin:admin_reporte_morosidad_pdf' %}?fecha={{ fecha_consulta }}" 
+   class="button" 
+   style="margin-bottom: 15px; display: inline-block;">
+   📄 Exportar a PDF
+</a>
+-->
+<a href="{% url 'admin:admin_reporte_morosidad_pdf' %}?fecha={{ fecha_consulta|date:'Y-m-d' }}">
+    📄 Exportar a PDF
+</a>
+
+{% if estudiantes %}
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Meses Pendientes</th>
+                <th>Total Vencido</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in estudiantes %}
+                <tr>
+                    <td>{{ e.nombres }} {{ e.apellidos }}</td>
+                    <td>{{ e.meses_pendientes }}</td>
+                    <td>{{ e.total_vencido }}</td>
+                    <td>
+                        {% for p in e.pendientes %}
+                            {{ p.concepto }} — vence {{ p.fecha_vencimiento }} ({{ p.monto }})<br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay estudiantes morosos hasta esta fecha.</p>
+{% endif %}
+{% endblock %}

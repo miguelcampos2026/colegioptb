@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Morosidad</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .encabezado { text-align: center; margin-bottom: 20px; }
+        .fechacorte {text-align: center; }
+        form { text-align: center; margin-bottom: 20px; }
+        input[type="date"] { padding: 5px; }
+        button { padding: 6px 12px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <div class="encabezado">
+        <h1>Colegio Primer Templo Bíblico</h1>
+        <h3>Reporte de Morosidad</h3>
+    </div>
+
+    <!-- Formulario para seleccionar fecha de corte -->
+    <form method="get" action="{% url 'reporte_morosidad' %}">
+        <label for="fecha">Ver morosidad hasta la fecha:</label>
+        <input type="date" id="fecha" name="fecha" value="{{ fecha_consulta|date:'Y-m-d' }}">
+        <button type="submit">Generar Reporte</button>
+    </form>
+
+    <div class="fechadecorte">
+        <p>Fecha de corte: {{ fecha_consulta }}</p>
+    </div>
+
+    <!-- Tabla de morosidad -->
+    <table>
+        <tr>
+            <th>Estudiante</th>
+            <th>Meses Pendientes</th>
+            <th>Total Vencido</th>
+            <th>Detalle</th>
+        </tr>
+        {% for e in estudiantes %}
+        <tr>
+            <td>{{ e.nombres }} {{ e.apellidos }}</td>
+            <td>{{ e.meses_pendientes }}</td>
+            <td>{{ e.total_vencido }}</td>
+            <td>
+                {% for p in e.pendientes %}
+                    {{ p.concepto }} - Vence: {{ p.fecha_vencimiento }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No hay estudiantes morosos en este rango</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "reportes/pdf_base.html" %}
+
+{% block contenido %}
+<h2 style="text-align:center;">{{ titulo_reporte }}</h2>
+
+<p>
+  <strong>Mes:</strong> {{ mes }} /
+  <strong>Año:</strong> {{ anio }}
+</p>
+
+<table style="width:100%; border-collapse: collapse; margin-top:10px;">
+  <thead>
+    <tr>
+      <th style="border:1px solid #333; padding:6px;">Recibo</th>
+      <th style="border:1px solid #333; padding:6px;">Estudiante</th>
+      <th style="border:1px solid #333; padding:6px;">Fecha de Pago</th>
+      <th style="border:1px solid #333; padding:6px;">Responsable</th>
+      <th style="border:1px solid #333; padding:6px; text-align:right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pagos %}
+    <tr>
+      <td style="border:1px solid #ccc; padding:6px;">{{ p.recibo_numero }}</td>
+      <td style="border:1px solid #ccc; padding:6px;">
+        {{ p.estudiante.nombres }} {{ p.estudiante.apellidos }}
+      </td>
+      <td style="border:1px solid #ccc; padding:6px;">{{ p.fecha_pago }}</td>
+      <td style="border:1px solid #ccc; padding:6px;">{{ p.responsable }}</td>
+      <td style="border:1px solid #ccc; padding:6px; text-align:right;">
+        {{ p.total_pago }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Reportes</h1>
+<ul>
+  <li><a href="{% url 'admin:admin_reporte_form' 'morosidad' %}">Reporte de Morosidad</a></li>
+  <li><a href="{% url 'admin:admin_reporte_form' 'pendientes' %}">Reporte de Pagos Pendientes</a></li>
+  <li><a href="{% url 'admin:admin_reporte_form' 'pagos-mensuales' %}">Pagos Realizados por Mes</a></li>
+  <li><a href="{% url 'admin:admin_reporte_form' 'balance' %}">Balance General de Ingresos</a></li>
+</ul>
+{% endblock %}

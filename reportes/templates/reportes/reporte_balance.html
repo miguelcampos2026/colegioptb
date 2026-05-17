@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="module">
+    <h1>📊 Balance General de Ingresos</h1>
+
+    <!-- Formulario de fecha de corte -->
+    <form method="get" action="">
+        <label for="fecha">Fecha de corte:</label>
+        <input type="date" id="fecha" name="fecha" value="{{ fecha_consulta }}">
+        <button type="submit" class="button">Generar</button>
+    </form>
+
+    <p>Fecha de corte: {{ fecha_consulta }}</p>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Total Ingresos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ balance.total_ingresos }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

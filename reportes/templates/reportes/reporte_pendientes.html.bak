@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Pagos Pendientes</title>
+    <style>
+        body {font-family: Arial, sans-serif; margin: 20px; }
+        table {width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td {border: 1px solid black; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .encabezado {text-align: center; margin-bottom: 20px; }
+    </style>
+</head>
+
+{% extends "admin/base_site.html" %}
+    {% block content %}
+    <div class="module">
+        <h1>📄 Reporte de Pagos Pendientes</h1>
+
+        <!-- Formulario para definir fecha de corte -->
+        <form method="get" action="">
+            <label for="fecha">Fecha de corte:</label>
+            <input type="date" id="fecha" name="fecha" value="{{ fecha_consulta }}">
+            <button type="submit" class="button">Generar</button>
+        </form>
+
+        <p>Fecha de consulta: {{ fecha_consulta }}</p>
+
+        {% if estudiantes %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        <th>Concepto</th>
+                        <th>Monto</th>
+                        <th>Recargo</th>
+                        <th>Fecha Vencimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for est in estudiantes %}
+                        {% for p in est.pendientes %}
+                            <tr>
+                                <td>{{ est.nombres }} {{ est.apellidos }}</td>
+                                <td>{{ p.concepto }}</td>
+                                <td>{{ p.monto }}</td>
+                                <td>{{ p.recargo }}</td>
+                                <td>{{ p.fecha_vencimiento }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay pagos pendientes hasta la fecha seleccionada.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+<body>
+    <div class="encabezado">
+        <h1>Colegio Primer Templo Bíblico</h1>
+        <h3>Fratenidad de Iglesias Evangélicas Misión Centroamericana</h3>
+        <h2>Reporte de Estudiantes con Pagos Pendientes</h2>
+        <p>Fecha de corte: {{ fecha_consulta }}</p>
+    </div>
+
+    <!-- Bloque A: Rubros iniciales -->
+    <h2>Rubros Iniciales</h2>
+    <table>
+        <tr>
+            <th>Estudiante</th>
+            <th>Matrícula</th>
+            <th>Mobiliario</th>
+            <th>Papelería</th>
+            <th>Tecnología</th>
+            <th>Seguro Escolar</th>
+        </tr>
+        {% for e in estudiantes %}
+        <tr>
+            <td>{{ e.nombres }} {{ e.apellidos }}</td>
+            <td>
+                {% for p in e.pendientes %}
+                    {% if "Matrícula" in p.concepto %}{{ p.monto }}{% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {% for p in e.pendientes %}
+                    {% if "Mobiliario" in p.concepto %}{{ p.monto }}{% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {% for p in e.pendientes %}
+                    {% if "Papelería" in p.concepto %}{{ p.monto }}{% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {% for p in e.pendientes %}
+                    {% if "Tecnología" in p.concepto %}{{ p.monto }}{% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                {% for p in e.pendientes %}
+                    {% if "Seguro Escolar" in p.concepto %}{{ p.monto }}{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No hay rubros iniciales pendientes</td></tr>
+        {% endfor %}
+    </table>
+
+    <!-- Bloque B: Colegiaturas mensuales -->
+    <h2>Colegiaturas Mensuales</h2>
+    <table>
+        <tr>
+            <th>Estudiante</th>
+            <th>Concepto</th>
+            <th>Monto</th>
+            <th>Fecha Vencimiento</th>
+        </tr>
+        {% for e in estudiantes %}
+            {% for p in e.pendientes %}
+                {% if "Colegiatura" in p.concepto %}
+                <tr>
+                    <td>{{ e.nombres }} {{ e.apellidos }}</td>
+                    <td>{{ p.concepto }}</td>
+                    <td>{{ p.monto }}</td>
+                    <td>{{ p.fecha_vencimiento }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        {% empty %}
+        <tr><td colspan="4">No hay colegiaturas pendientes</td></tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

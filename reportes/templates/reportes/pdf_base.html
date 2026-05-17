@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Base</title>
+    <style>
+        @page {
+            size: Letter;
+            margin: 120px 40px 60px 40px; /* espacio para el encabezado */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        /* ENCABEZADO */
+        .header {
+            width: 100%;
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+        }
+
+        .header-table {
+            width: 100%;
+        }
+
+        .header-table td {
+            vertical-align: middle;
+        }
+
+        .logo {
+            width: 90px;   /* tamaño fijo para evitar distorsión */
+        }
+
+        .logo img {
+            width: 90px;
+            height: auto;
+        }
+
+        .titulo-bloque {
+            text-align: center;
+            color: #003366; /* azul institucional */
+        }
+
+        .titulo-colegio {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .titulo-reporte {
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .fecha-emision {
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        /* CONTENIDO */
+        .contenido {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ENCABEZADO QUE SE REPITE EN TODAS LAS PÁGINAS -->
+<div class="header">
+    <table class="header-table">
+        <tr>
+            <!-- LOGO A LA IZQUIERDA -->
+            <td class="logo">
+                <img src="{{ logo_path }}" alt="Logo">
+            </td>
+
+            <!-- TEXTO A LA DERECHA -->
+            <td class="titulo-bloque">
+                <div class="titulo-colegio">Colegio Primer Templo Bíblico</div>
+                <div class="titulo-reporte">{{ titulo_reporte }}</div>
+                <div class="fecha-emision">Fecha de emisión: {{ fecha_emision }}</div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- CONTENIDO DEL REPORTE -->
+<div class="contenido">
+    {% block contenido %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

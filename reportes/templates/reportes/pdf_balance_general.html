@@ -1,0 +1,33 @@
+{% extends "reportes/pdf_base.html" %}
+
+{% block contenido %}
+<h2 style="text-align:center;">{{ titulo_reporte }}</h2>
+
+<p>
+  <strong>Total de ingresos:</strong> {{ balance.total_ingresos }}
+</p>
+
+<table style="width:100%; border-collapse: collapse; margin-top:10px;">
+  <thead>
+    <tr>
+      <th style="border:1px solid #333; padding:6px;">Recibo</th>
+      <th style="border:1px solid #333; padding:6px;">Estudiante</th>
+      <th style="border:1px solid #333; padding:6px; text-align:right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pago, total in pagos_totales %}
+    <tr>
+      <td style="border:1px solid #ccc; padding:6px;">{{ pago.recibo_numero }}</td>
+      <td style="border:1px solid #ccc; padding:6px;">
+        {{ pago.estudiante.nombres }} {{ pago.estudiante.apellidos }}
+      </td>
+      <td style="border:1px solid #ccc; padding:6px; text-align:right;">
+        {{ total }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

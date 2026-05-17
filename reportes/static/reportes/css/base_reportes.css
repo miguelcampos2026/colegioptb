@@ -1,0 +1,98 @@
+:root {
+    --azul: #1F497D;
+    --vino: #632423;
+    --gris-claro: #f5f5f5;
+    --gris-borde: #ddd;
+}
+
+.module .encabezado-institucional {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1F497D; /* línea institucional */
+}
+.module .encabezado-institucional h1 {
+    /* Estilos específicos para el h1 si los necesitas */
+    font-size: 26px; /* Ejemplo de tamaño */
+    font-weight: bold;
+    color: var(--azul); /* Ejemplo de color */
+    margin: 0;
+
+}
+.module .encabezado-institucional h3 {
+    /* Estilos específicos para el h3 si los necesitas */
+    font-size: 18px; /* Ejemplo de tamaño */
+    color: var(--vino); /* Ejemplo de color */
+    margin-top: 5px;
+}
+
+/* Menú lateral */
+.menu-lateral {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.menu-lateral h3 {
+    margin-top: 0;
+    color: var(--azul);
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.menu-lateral ul li {
+    margin-bottom: 10px;
+}
+
+.menu-lateral ul li a {
+    text-decoration: none;
+    color: var(--azul);
+    font-weight: bold;
+}
+
+.menu-lateral ul li a:hover {
+    color: var(--vino);
+    text-decoration: underline;
+}
+
+/* Tablas de reportes */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th {
+    background: #1F497D;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.admin-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.admin-table tr:hover {
+    background: #eef3ff;
+}
+
+/* Contenido del Reporte */
+.module .contenido-reporte {
+    float:left;
+    width:75%;
+}
+
+/* Final del Reporte */
+.module .final {
+    clear:both;
+}

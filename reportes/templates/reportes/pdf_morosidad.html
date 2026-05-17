@@ -1,0 +1,32 @@
+{% extends "reportes/pdf_base.html" %}
+
+{% block contenido %}
+
+<p><strong>Fecha de consulta:</strong> {{ fecha_consulta }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Estudiante</th>
+            <th>Meses Pendientes</th>
+            <th>Total Vencido</th>
+            <th>Detalle</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in estudiantes %}
+        <tr>
+            <td>{{ e.nombres }} {{ e.apellidos }}</td>
+            <td>{{ e.meses_pendientes }}</td>
+            <td>{{ e.total_vencido }}</td>
+            <td>
+                {% for p in e.pendientes %}
+                    {{ p.concepto }} - vence {{ p.fecha_vencimiento }} ({{ p.monto }})<br/>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

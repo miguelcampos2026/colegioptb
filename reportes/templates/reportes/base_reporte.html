@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'reportes/css/base_reportes.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="module">
+    <!-- Encabezado institucional -->
+    <div class="encabezado-institucional">
+        <h1>Colegio Primer Templo Bíblico</h1>
+        <h3>Departamento Administrativo</h3>
+    </div>
+
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <h3>📁 Menú de Reportes</h3>
+        <ul class="object-tools">
+            <li><a href="{% url 'admin:admin_reporte_pendientes' %}">Pagos Pendientes</a></li>
+            <li><a href="{% url 'admin:admin_reporte_morosidad' %}">Morosidad</a></li>
+            <li><a href="{% url 'admin:admin_reporte_pagos_mensuales' %}">Pagos Mensuales</a></li>
+            <li><a href="{% url 'admin:admin_reporte_balance_general' %}">Balance General</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido del reporte -->
+    <div class="contenido-reporte">
+        {% block reporte_contenido %}
+        {% endblock %}
+    </div>
+
+    <div class="final"></div>
+
+</div>
+{% endblock %}

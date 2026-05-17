@@ -1,0 +1,47 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="module">
+    <h1>💰 Reporte de Pagos Mensuales</h1>
+
+    <!-- Formulario de fecha de corte -->
+    <form method="get" action="">
+        <label for="fecha">Fecha de corte:</label>
+        <input type="date" id="fecha" name="fecha" value="{{ fecha_consulta }}">
+        <button type="submit" class="button">Generar</button>
+    </form>
+
+    <p>Mes consultado: {{ mes }}</p>
+
+    {% if pagos %}
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Estudiante</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th>Fecha de Pago</th>
+                    <th>Responsable</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pago in pagos %}
+                    <tr>
+                        <td>{{ pago.estudiante.nombres }} {{ pago.estudiante.apellidos }}</td>
+                        <td>
+                            {% for pendiente in pago.pendientes.all %}
+                                {{ pendiente.concepto }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>{{ pago.total_pago }}</td>
+                        <td>{{ pago.fecha_pago }}</td>
+                        <td>{{ pago.responsable }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No se registran pagos en este mes.</p>
+    {% endif %}
+</div>
+{% endblock %}

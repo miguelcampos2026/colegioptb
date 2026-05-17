@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Ingresos</title>
+    <style>
+        @page {size: Letter; /* A4 o Letter si prefieres */ margin: 20mm;}
+        body {font-family: "Times New Roman", serif; font-size: 12pt; margin: 20px; padding: 0;}
+        .encabezado {text-align: center; margin-bottom: 20px;}
+        .encabezado h2, .encabezado h3 {margin: 0; }
+        .datos {margin-bottom: 15px;}
+        .datos p {margin: 2px 0;}
+        .datos p h2{margin: 0;}
+        table {width: 100%; border-collapse: collapse; margin-bottom: 10px;}
+        table, th, td {border: 1px solid black;}
+        th, td {padding: 6px; text-align: left;}
+        .total {text-align: right; font-weight: bold; margin-top: 10px; font-size: 13pt;}
+        .observacion {margin-top: 15px;}
+        .firma {margin-top: 40px; text-align: right;}
+        @media print {
+            body {
+                margin: 10px;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="encabezado">
+        <h2>Colegio Primer Templo Bíblico</h2>
+        <h3>Fraternidad de Iglesias Evangélicas Misión Centroamericana de Nicaragua</h3>
+        <p>Tel.: 2278-2471 - Managua, Nicaragua</p>
+        <h2>RECIBO DE INGRESOS</h2>
+    </div>
+
+    <div class="datos">
+        <p><h2><strong>Recibo Nº:</strong> {{ pago.recibo_numero }}</h2></p>
+        <p><strong>Estudiante:</strong> {{ pago.estudiante.nombres }} {{ pago.estudiante.apellidos }}</p>
+        <p><strong>Fecha:</strong> {{ pago.fecha_pago }}</p>
+        <p><strong>Responsable:</strong> {{ pago.responsable }}</p>
+    </div>
+
+    <table>
+        <tr>
+            <th>Concepto</th>
+            <th>Monto</th>
+        </tr>
+        {% for pendiente in pago.pendientes.all %}
+        <tr>
+            <td>{{ pendiente.concepto }}</td>
+            <td>{{ pendiente.monto }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p class="total">TOTAL: {{ pago.total_pago }}</p>
+
+    <div class="observacion">
+        <p><strong>Observación:</strong> {{ pago.observacion }}</p>
+    </div>
+
+    <div class="firma">
+        <p>__________________________</p>
+        <p>Firma y Sello</p>
+    </div>
+
+    <div class="no-print">
+        <button onclick="window.print()">Imprimir Recibo</button>
+    </div>
+
+</body>
+</html>

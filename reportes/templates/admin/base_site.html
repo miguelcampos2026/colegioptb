@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="module">
+    <h2>📊 Reportes Administrativos</h2>
+    <ul class="object-tools">
+        <li>
+            <a href="{% url 'reporte_pendientes_admin' %}" class="addlink">📄 Reporte de Pagos Pendientes</a>
+        </li>
+        <li>
+            <a href="{% url 'reporte_morosidad' %}" class="addlink">⚠️ Reporte de Morosidad</a>
+        </li>
+        <li>
+            <a href="{% url 'reporte_pagos_mensuales' %}" class="addlink">💰 Pagos Realizados por Mes</a>
+        </li>
+        <li>
+            <a href="{% url 'reporte_balance_general' %}" class="addlink">📊 Balance General de Ingresos</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
